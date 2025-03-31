@@ -1,54 +1,96 @@
-# React + TypeScript + Vite
+# Frontend README
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+This is the frontend for the Full Stack Application. It is built using React and styled with TailwindCSS. The application communicates with a backend API to handle authentication, data management, and other functionalities.
 
-Currently, two official plugins are available:
+## Features
+- User authentication (Login & Signup)
+- Dashboard for displaying user-specific data
+- Responsive UI with TailwindCSS
+- API integration with backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- **React** (Frontend Framework)
+- **TailwindCSS** (Styling)
+- **React Router** (Navigation)
+- **Axios** (API Requests)
+- **Context API / Redux** (State Management, if applicable)
 
-## Expanding the ESLint configuration
+## Installation & Setup
+### Prerequisites
+Make sure you have the following installed:
+- [Node.js](https://nodejs.org/) (Latest LTS version recommended)
+- npm or yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Clone the Repository
+```sh
+git clone https://github.com/your-username/your-repo.git
+cd frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### Install Dependencies
+```sh
+npm install  # or yarn install
 ```
+
+### Environment Variables
+Create a `.env` file in the root directory and add:
+```
+REACT_APP_API_URL=http://localhost:5000/api  # Change according to your backend URL
+```
+
+### Run the Development Server
+```sh
+npm start  # or yarn start
+```
+This will start the application at `http://localhost:3000/`.
+
+## Build for Production
+To create an optimized build, run:
+```sh
+npm run build
+```
+
+## Project Structure
+```
+frontend/
+│── public/              # Static assets
+│── src/
+│   ├── components/      # Reusable components
+│   ├── pages/           # Application pages
+│   ├── context/         # State management (if using Context API)
+│   ├── hooks/           # Custom hooks
+│   ├── services/        # API calls (Axios)
+│   ├── App.js           # Main App component
+│   ├── index.js         # Entry point
+│── .env                 # Environment variables
+│── package.json         # Project metadata & dependencies
+│── README.md            # Project documentation
+```
+
+## API Integration
+All API requests are handled through the `services/api.js` file. Example of an API call:
+```js
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+export const loginUser = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+    return response.data;
+  } catch (error) {
+    console.error("Login error", error);
+    throw error;
+  }
+};
+```
+
+## Contribution Guide
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit changes (`git commit -m 'Add new feature'`)
+4. Push to GitHub (`git push origin feature-branch`)
+5. Open a pull request
+
+
